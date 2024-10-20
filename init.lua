@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -105,7 +105,7 @@ vim.opt.number = true
 -- vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+-- vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -155,10 +155,15 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+-- vim.opt.scrolloff = 10
+vim.opt.scrolloff = 0
+
+vim.opt.magic = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+vim.keymap.set('i', '<C-s>', '<cmd>w<CR><Esc>')
+-- vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -166,6 +171,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+vim.keymap.set('n', '<leader>lm', ':Mason<CR>', { desc = 'language' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
