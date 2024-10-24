@@ -1,11 +1,7 @@
 vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
-vim.keymap.set('n', 'sc', '<C-w>q')
 vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
--- vim.keymap.set('n', '<leader>wo', '<cmd>wa<CR><cmd>so %<CR>')
--- vim.keymap.set('n', '<leader>w', '<cmd>wa<CR><cmd>so %<CR>')
-vim.keymap.set({ 'i', 'n' }, '<C-s>', '<cmd>w<CR><Esc>')
+vim.keymap.set('n', 'sc', '<C-w>q')
 vim.keymap.set('i', 'xx', '<cmd>w<CR><Esc>')
-vim.keymap.set('i', ',,', '<cmd>w<CR><Esc>')
 vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { desc = 'save & quit neovim' })
 vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
 vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
@@ -101,7 +97,7 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- vim.opt.scrolloff = 10
-vim.opt.scrolloff = 0
+vim.opt.scrolloff = 10
 
 vim.opt.magic = true
 
@@ -139,7 +135,6 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<leader>gn', '<cmd>Neogit<CR>', { desc = 'Open Neogit' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -266,11 +261,9 @@ require('lazy').setup({
       spec = {
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
-        { '<leader>g', group = '[G]it' },
         { '<leader>p', group = '[P]lugins' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
@@ -489,7 +482,7 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>sy', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
