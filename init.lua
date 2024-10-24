@@ -3,7 +3,7 @@ vim.keymap.set('n', 'sc', '<C-w>q')
 vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
 -- vim.keymap.set('n', '<leader>wo', '<cmd>wa<CR><cmd>so %<CR>')
 -- vim.keymap.set('n', '<leader>w', '<cmd>wa<CR><cmd>so %<CR>')
-vim.keymap.set('i', '<C-s>', '<cmd>w<CR><Esc>')
+vim.keymap.set({ 'i', 'n' }, '<C-s>', '<cmd>w<CR><Esc>')
 vim.keymap.set('i', 'xx', '<cmd>w<CR><Esc>')
 vim.keymap.set('i', ',,', '<cmd>w<CR><Esc>')
 vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { desc = 'save & quit neovim' })
@@ -115,7 +115,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-vim.keymap.set('n', '<leader>lm', ':Mason<CR>', { desc = 'xxxxxxx' })
+vim.keymap.set('n', '<leader>pm', ':Mason<CR>', { desc = 'Mason' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -266,6 +266,8 @@ require('lazy').setup({
       spec = {
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>p', group = '[P]lugins' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
