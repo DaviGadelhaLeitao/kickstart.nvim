@@ -1,3 +1,17 @@
+vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
+vim.keymap.set('n', 'sc', '<C-w>q')
+vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
+-- vim.keymap.set('n', '<leader>wo', '<cmd>wa<CR><cmd>so %<CR>')
+-- vim.keymap.set('n', '<leader>w', '<cmd>wa<CR><cmd>so %<CR>')
+vim.keymap.set('i', '<C-s>', '<cmd>w<CR><Esc>')
+vim.keymap.set('i', 'xx', '<cmd>w<CR><Esc>')
+vim.keymap.set('i', ',,', '<cmd>w<CR><Esc>')
+vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { desc = 'save & quit neovim' })
+vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
+vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
+vim.keymap.set('n', '<leader>3', '<C-w>k<C-w>l', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
+vim.keymap.set('n', '<leader>4', '<C-w>j<C-w>l', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+
 --[[
     If you don't know anything about Lua, I recommend taking some time to read through
     a guide. One possible example which will only take 10-15 minutes:
@@ -93,8 +107,6 @@ vim.opt.magic = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-vim.keymap.set('i', '<C-s>', '<cmd>w<CR><Esc>')
--- vim.keymap.set('n', '<leader>w', '<cmd>w<CR>')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -127,7 +139,7 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
+vim.keymap.set('n', '<leader>gn', '<cmd>Neogit<CR>', { desc = 'Open Neogit' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -340,6 +352,7 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>sm', builtin.man_pages, { desc = 'search manual pages' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
@@ -874,7 +887,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
