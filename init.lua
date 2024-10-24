@@ -1,13 +1,8 @@
-vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
-vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
-vim.keymap.set('n', 'sc', '<C-w>q')
-vim.keymap.set('i', 'xx', '<cmd>w<CR><Esc>')
-vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { desc = 'save & quit neovim' })
-vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
-vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
-vim.keymap.set('n', '<leader>3', '<C-w>k<C-w>l', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
-vim.keymap.set('n', '<leader>4', '<C-w>j<C-w>l', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
-
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 --[[
     If you don't know anything about Lua, I recommend taking some time to read through
     a guide. One possible example which will only take 10-15 minutes:
@@ -24,11 +19,16 @@ I hope you enjoy your Neovim journey,
 - TJ
 --]]
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
+vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
+vim.keymap.set('n', 'sc', '<C-w>q')
+vim.keymap.set('i', 'xx', '<cmd>w<CR><ESC>')
+vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { noremap = true, desc = 'save & quit neovim' })
+vim.keymap.set('n', '<leader>x', '<cmd>qa<CR>', { noremap = true, desc = 'save & quit neovim' })
+vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
+vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
+vim.keymap.set('n', '<leader>3', '<C-w>k<C-w>l', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
+vim.keymap.set('n', '<leader>4', '<C-w>j<C-w>l', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -400,6 +400,18 @@ require('lazy').setup({
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    -- ---@type AutoSession.Config
+    opts = {
+      suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      -- log_level = 'debug',
+    },
+  },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
