@@ -19,6 +19,16 @@ I hope you enjoy your Neovim journey,
 - TJ
 --]]
 
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.cmd [[
+      highlight MiniStatuslineFilename guifg=#FFFF00 gui=bold
+      highlight MiniStatuslineInactive guifg=#FFFF00 gui=bold
+    ]]
+  end,
+})
+
 vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
 vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
 vim.keymap.set('n', 'sc', '<C-w>q')
