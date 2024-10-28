@@ -29,32 +29,23 @@ vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
 vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
 vim.keymap.set('n', 'sc', '<C-w>q')
 vim.keymap.set('i', 'xx', '<cmd>w<CR><ESC>')
+vim.keymap.set('i', 'kk', ':')
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'write' })
 vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { noremap = true, desc = 'save & quit neovim' })
-vim.keymap.set('n', '<leader>x', '<cmd>qa<CR>', { noremap = true, desc = 'save & quit neovim' })
+vim.keymap.set('n', '<leader>ko', '<cmd>wa<CR><cmd>%bdelete|edit#<CR>', { desc = '[K]ill [O]ther buffers' })
 vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
 vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
 vim.keymap.set('n', '<leader>3', '<C-w>k<C-w>l', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
 vim.keymap.set('n', '<leader>4', '<C-w>j<C-w>l', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
+-- NOTE:
 -- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- Make line numbers default
 vim.opt.number = false
 vim.opt.relativenumber = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
--- vim.opt.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
@@ -65,10 +56,7 @@ vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
--- Enable break indent
 vim.opt.breakindent = true
-
--- Save undo history
 vim.opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
@@ -137,10 +125,10 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set({ 'n', 'i' }, '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set({ 'n', 'i' }, '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set({ 'n', 'i' }, '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set({ 'n', 'i' }, '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -174,6 +162,10 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can press `?` in this menu for help. Use `:q` to close the window
 --
+-- vim.opt.softtabstop = 2
+-- vim.opt.tabstop = 2
+-- vim.opt.shiftwidth = 2
+-- vim.opt.expandtab = true
 --  To update plugins you can run
 --    :Lazy update
 --
@@ -366,6 +358,11 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'NeoTreeToggle' })
+      vim.keymap.set('n', '<leader>gfh', builtin.git_bcommits, { desc = 'file history' })
+      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'git status' })
+      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'git branches' })
+      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'git commits' })
+      vim.keymap.set('n', '<leader>gt', builtin.git_stash, { desc = 'git stash' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -417,6 +414,32 @@ require('lazy').setup({
       suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
       -- log_level = 'debug',
     },
+  },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'marilari88/neotest-vitest',
+      'nvim-neotest/neotest-jest',
+    },
+    config = function()
+      require('neotest').setup {
+        adapters = {
+          require 'neotest-vitest',
+        },
+      }
+      require 'neotest-jest' {
+        jestCommand = 'npm test --',
+        jestConfigFile = 'custom.jest.config.ts',
+        env = { CI = true },
+        cwd = function(path)
+          return vim.fn.getcwd()
+        end,
+      }
+    end,
   },
   {
     -- Main LSP Configuration
@@ -898,7 +921,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
