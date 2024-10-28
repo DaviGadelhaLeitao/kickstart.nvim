@@ -1,12 +1,6 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 --[[
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
+      learn lua
+      https://learnxinyminutes.com/docs/lua/
 
     After understanding a bit more about Lua, you can use `:help lua-guide` as a
     reference for how Neovim integrates Lua.
@@ -19,6 +13,8 @@ I hope you enjoy your Neovim journey,
 - TJ
 --]]
 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
@@ -107,7 +103,7 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- vim.opt.scrolloff = 10
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 15
 
 vim.opt.magic = true
 
