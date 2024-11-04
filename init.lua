@@ -15,6 +15,8 @@ I hope you enjoy your Neovim journey,
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.keymap.set('n', 'j', 'gj')
+vim.keymap.set('n', 'k', 'gk')
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
