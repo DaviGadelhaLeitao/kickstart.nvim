@@ -24,7 +24,15 @@ vim.api.nvim_create_autocmd('VimEnter', {
     ]]
   end,
 })
-
+vim.api.nvim_set_keymap('n', '<leader>,', ':b#<CR>', { noremap = true, silent = true, desc = 'previous buffer' })
+vim.opt.foldtext = ''
+vim.opt.fillchars = { fold = ' ' }
+vim.opt.foldmethod = 'indent'
+vim.keymap.set('n', '<leader>k0', '<cmd>set foldlevel=0<CR>')
+vim.keymap.set('n', '<leader>k1', '<cmd>set foldlevel=1<CR>')
+vim.keymap.set('n', '<leader>k2', '<cmd>set foldlevel=2<CR>')
+vim.keymap.set('n', '<leader>k3', '<cmd>set foldlevel=3<CR>')
+vim.keymap.set('n', '<leader>kj', 'zR')
 vim.keymap.set('n', 'ss', '<cmd>vs<CR>')
 vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
 vim.keymap.set('n', 'sc', '<C-w>q')
@@ -91,7 +99,7 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- vim.opt.scrolloff = 10
-vim.opt.scrolloff = 15
+vim.opt.scrolloff = 5
 
 vim.opt.magic = true
 
@@ -504,6 +512,7 @@ require('lazy').setup({
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('so', require('telescope.builtin').lsp_document_symbols, 'outline')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
