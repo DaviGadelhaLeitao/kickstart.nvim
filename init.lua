@@ -8,15 +8,26 @@
     - (or HTML version): https://neovim.io/doc/user/lua-guide.html
 
 If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
 --]]
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
+
+function _G.close_all_except_current_and_neotree()
+  local current_buf = vim.api.nvim_get_current_buf()
+  local buffers = vim.api.nvim_list_bufs()
+
+  for _, buf in ipairs(buffers) do
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if buf ~= current_buf and not bufname:lower():match 'neo%-tree' then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>bo', ':lua close_all_except_current_and_neotree()<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
@@ -267,6 +278,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
+        { '<leader>b', group = '[B]' },
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>p', group = '[P]lugins' },
