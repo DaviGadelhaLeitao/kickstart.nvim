@@ -10,6 +10,26 @@
 If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
 --]]
 
+local window_original_size = {}
+
+local function toggle_maximize_window()
+  local win_id = vim.fn.win_getid()
+
+  if window_original_size[win_id] then
+    vim.cmd(window_original_size[win_id].height)
+    vim.cmd(window_original_size[win_id].width)
+    window_original_size[win_id] = nil
+  else
+    window_original_size[win_id] = {
+      height = 'resize ' .. vim.fn.winheight(0),
+      width = 'vertical resize ' .. vim.fn.winwidth(0),
+    }
+
+    vim.cmd 'resize'
+    vim.cmd 'vertical resize'
+  end
+end
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', 'j', 'gj')
@@ -999,3 +1019,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
