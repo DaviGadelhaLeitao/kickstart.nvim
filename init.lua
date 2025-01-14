@@ -10,6 +10,12 @@
 If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
 --]]
 
+-- function _G.show_jumps_in_buffer()
+--   vim.cmd 'redir @a | jumps | redir END'
+--   vim.cmd 'new'
+--   vim.cmd 'put a'
+-- end
+
 local window_original_size = {}
 
 local function toggle_maximize_window()
@@ -30,10 +36,12 @@ local function toggle_maximize_window()
   end
 end
 
+-- vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>jumps<CR>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.keymap.set('n', 'j', 'gj')
 vim.keymap.set('n', 'k', 'gk')
+vim.keymap.set('n', '<leader>km', toggle_maximize_window, { noremap = true, silent = true })
 
 function _G.close_all_except_current_and_neotree()
   local current_buf = vim.api.nvim_get_current_buf()
@@ -47,7 +55,7 @@ function _G.close_all_except_current_and_neotree()
   end
 end
 
-vim.api.nvim_set_keymap('n', '<leader>bo', ':lua close_all_except_current_and_neotree()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ko', ':lua close_all_except_current_and_neotree()<CR>', { noremap = true, silent = true, desc = '[K]ill [O]thers' })
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
@@ -57,10 +65,12 @@ vim.api.nvim_create_autocmd('VimEnter', {
     ]]
   end,
 })
+
 vim.api.nvim_set_keymap('n', '<leader>,', ':b#<CR>', { noremap = true, silent = true, desc = 'previous buffer' })
 vim.opt.foldtext = ''
 vim.opt.fillchars = { fold = ' ' }
 vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 99
 vim.keymap.set('n', '<leader>k0', '<cmd>set foldlevel=0<CR>')
 vim.keymap.set('n', '<leader>k1', '<cmd>set foldlevel=1<CR>')
 vim.keymap.set('n', '<leader>k2', '<cmd>set foldlevel=2<CR>')
@@ -73,7 +83,6 @@ vim.keymap.set('i', 'xx', '<cmd>w<CR><ESC>')
 vim.keymap.set('i', 'kk', ':')
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'write' })
 vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { noremap = true, desc = 'save & quit neovim' })
-vim.keymap.set('n', '<leader>ko', '<cmd>wa<CR><cmd>%bdelete|edit#<CR>', { desc = '[K]ill [O]ther buffers' })
 vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
 vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
 vim.keymap.set('n', '<leader>3', '<C-w>k<C-w>l', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
@@ -85,7 +94,7 @@ vim.g.have_nerd_font = true
 -- See `:help vim.opt`
 --  For more options, you can see `:help option-list`
 
-vim.opt.number = false
+vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showmode = false
 
@@ -1019,4 +1028,3 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
