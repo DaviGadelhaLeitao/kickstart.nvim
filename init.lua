@@ -16,6 +16,10 @@ If you experience any errors while trying to install kickstart, run `:checkhealt
 --   vim.cmd 'put a'
 -- end
 
+-- vim.keymap.set('n', '<leader>w', '<cmd>bd<CR>', { desc = 'close window and buffer delete' })
+-- I don't why but I can't assign a keybinding to <leader>w
+-- vim.keymap.set('n', '<leader>w', '<cmd>tabclose<CR>', { desc = 'close tab' })
+
 local window_original_size = {}
 
 local function toggle_maximize_window()
@@ -39,8 +43,8 @@ end
 -- vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>jumps<CR>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
+-- vim.keymap.set('n', 'j', 'gj')
+-- vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', '<leader>km', toggle_maximize_window, { noremap = true, silent = true })
 
 function _G.close_all_except_current_and_neotree()
@@ -55,7 +59,8 @@ function _G.close_all_except_current_and_neotree()
   end
 end
 
-vim.api.nvim_set_keymap('n', '<leader>ko', ':lua close_all_except_current_and_neotree()<CR>', { noremap = true, silent = true, desc = '[K]ill [O]thers' })
+-- vim.api.nvim_set_keymap('n', '<leader>ko', ':lua close_all_except_current_and_neotree()<CR>', { noremap = true, silent = true, desc = '[K]ill [O]thers' })
+vim.api.nvim_set_keymap('n', '<leader>ko', '<cmd>tabonly<CR>', { noremap = true, silent = true, desc = '[K]ill [O]thers' })
 
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
@@ -81,12 +86,18 @@ vim.keymap.set('n', 'sx', '<cmd>sp<CR>')
 vim.keymap.set('n', 'sc', '<C-w>q')
 vim.keymap.set('i', 'xx', '<cmd>w<CR><ESC>')
 vim.keymap.set('i', 'kk', ':')
-vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'write' })
+vim.keymap.set('n', '<leader>s', '<cmd>w<CR>', { desc = 'write' })
 vim.keymap.set('n', '<leader>x', '<cmd>wa<CR><cmd>qa<CR>', { noremap = true, desc = 'save & quit neovim' })
-vim.keymap.set('n', '<leader>1', '<C-w>h<C-w>k', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
-vim.keymap.set('n', '<leader>2', '<C-w>h<C-w>j', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
-vim.keymap.set('n', '<leader>3', '<C-w>k<C-w>l', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
-vim.keymap.set('n', '<leader>4', '<C-w>j<C-w>l', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>1', '<cmd>tabn 1<CR>', { noremap = true, silent = true, desc = 'Jump to left window' }) -- Left window
+vim.keymap.set('n', '<leader>2', '<cmd>tabn 2<CR>', { noremap = true, silent = true, desc = 'Jump to right window' }) -- Right window
+vim.keymap.set('n', '<leader>3', '<cmd>tabn 3<CR>', { noremap = true, silent = true, desc = 'Jump to bottom window' }) -- Bottom window
+vim.keymap.set('n', '<leader>4', '<cmd>tabn 4<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>5', '<cmd>tabn 5<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>6', '<cmd>tabn 6<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>7', '<cmd>tabn 7<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>8', '<cmd>tabn 8<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>9', '<cmd>tabn 9<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
+vim.keymap.set('n', '<leader>0', '<cmd>tablast<CR>', { noremap = true, silent = true, desc = 'Jump to top window' }) -- Top window
 
 vim.g.have_nerd_font = true
 
@@ -155,7 +166,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-vim.keymap.set('n', '<leader>pm', ':Mason<CR>', { desc = 'Mason' })
+-- vim.keymap.set('n', '<leader>pm', ':Mason<CR>', { desc = 'Mason' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -310,9 +321,9 @@ require('lazy').setup({
         { '<leader>b', group = '[B]' },
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
-        { '<leader>p', group = '[P]lugins' },
+        -- { '<leader>p', group = '[P]lugins' },
         { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
+        { '<leader>f', group = '[F]ind' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
@@ -395,18 +406,19 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sm', builtin.man_pages, { desc = 'search manual pages' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', function()
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
+      vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = 'search manual pages' })
+      vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+      vim.keymap.set('n', '<leade.r>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
+      vim.keymap.set('n', '<leader>fw', function()
         builtin.grep_string { search = vim.fn.expand '<cword>' }
       end, { desc = 'Search word under cursor' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
+      vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
+      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
+      vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>p', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'NeoTreeToggle' })
       vim.keymap.set('n', '<leader>gfh', builtin.git_bcommits, { desc = 'file history' })
@@ -426,17 +438,17 @@ require('lazy').setup({
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set('n', '<leader>s/', function()
+      vim.keymap.set('n', '<leader>f/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, { desc = '[F]ind [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
+      vim.keymap.set('n', '<leader>fn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      end, { desc = '[F]ind [N]eovim files' })
     end,
   },
 
@@ -546,16 +558,19 @@ require('lazy').setup({
           --
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
-          local map = function(keys, func, desc, mode)
+          local map = function(keys, func, desc, mode, centerScreen)
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            if centerScreen == true then
+              vim.cmd 'normal! zz'
+            end
           end
 
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-          map('so', require('telescope.builtin').lsp_document_symbols, 'outline')
+          map('fo', require('telescope.builtin').lsp_document_symbols, 'outline')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -575,7 +590,7 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>sy', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>fy', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -713,7 +728,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>fz',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
