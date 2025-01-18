@@ -178,7 +178,7 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- vim.opt.scrolloff = 10
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 3
 
 vim.opt.magic = true
 
@@ -406,6 +406,16 @@ require('lazy').setup({
       -- This opens a window that shows you all of the keymaps for the current
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
+      vim.keymap.set('n', 'gr', function()
+        require('telescope.builtin').lsp_references {
+          layout_strategy = 'horizontal',
+          layout_config = {
+            preview_width = 0.6,
+            width = 0.9,
+            height = 0.8,
+          },
+        }
+      end, { noremap = true, silent = true })
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
@@ -599,10 +609,6 @@ require('lazy').setup({
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('fo', require('telescope.builtin').lsp_document_symbols, 'outline')
 
-          -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-
-          -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
