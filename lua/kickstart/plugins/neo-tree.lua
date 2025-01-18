@@ -16,7 +16,7 @@ return {
   opts = {
     filesystem = {
       window = {
-        width = 80,
+        width = math.floor(vim.o.columns * 0.33),
         mappings = {
           ['\\'] = 'close_window',
         },
