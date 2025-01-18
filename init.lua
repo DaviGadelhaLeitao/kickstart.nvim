@@ -71,6 +71,32 @@ vim.api.nvim_set_keymap('n', '<leader>ko', '<cmd>tabonly<CR>', { noremap = true,
 --   end,
 -- })
 
+function CloseHelpBeforeQuit()
+  local help_windows = {}
+
+  -- Iterate through all windows
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    -- local buf_ft = vim.api.nvim_buf_get_option(buf, "filetype")
+    local buf_ft = vim.bo[buf].filetype
+    -- Check if the buffer is a help file
+    if buf_ft == 'help' then
+      table.insert(help_windows, win)
+    end
+  end
+
+  -- Close all help windows
+  for _, win in ipairs(help_windows) do
+    vim.api.nvim_win_close(win, true)
+  end
+
+  -- Quit Neovim
+  vim.cmd 'qa'
+end
+
+-- Map the function to a command (optional)
+vim.api.nvim_create_user_command('Quit', CloseHelpBeforeQuit, {})
+
 vim.api.nvim_set_keymap('n', '<leader>,', ':b#<CR>', { noremap = true, silent = true, desc = 'previous buffer' })
 vim.opt.foldtext = ''
 vim.opt.fillchars = { fold = ' ' }
