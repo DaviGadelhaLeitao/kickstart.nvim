@@ -62,11 +62,10 @@ function _G.close_all_except_current_and_neotree()
 	end
 end
 
--- vim.api.nvim_set_keymap('n', '<leader>ko', ':lua close_all_except_current_and_neotree()<CR>', { noremap = true, silent = true, desc = '[K]ill [O]thers' })
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>ko",
-	"<cmd>tabonly<CR>",
+	":lua close_all_except_current_and_neotree()<CR>",
 	{ noremap = true, silent = true, desc = "[K]ill [O]thers" }
 )
 
