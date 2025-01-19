@@ -16,10 +16,6 @@ If you experience any errors while trying to install kickstart, run `:checkhealt
 --   vim.cmd 'put a'
 -- end
 
--- vim.keymap.set('n', '<leader>w', '<cmd>bd<CR>', { desc = 'close window and buffer delete' })
--- I don't why but I can't assign a keybinding to <leader>w
--- vim.keymap.set('n', '<leader>w', '<cmd>tabclose<CR>', { desc = 'close tab' })
-
 local window_original_size = {}
 
 local function toggle_maximize_window()
@@ -40,11 +36,8 @@ local function toggle_maximize_window()
 	end
 end
 
--- vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>jumps<CR>', { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
--- vim.keymap.set('n', 'j', 'gj')
--- vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set("n", "<leader>km", toggle_maximize_window, { noremap = true, silent = true })
 vim.keymap.set("n", "n", "nzz", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
@@ -68,15 +61,6 @@ vim.api.nvim_set_keymap(
 	":lua close_all_except_current_and_neotree()<CR>",
 	{ noremap = true, silent = true, desc = "[K]ill [O]thers" }
 )
-
--- vim.api.nvim_create_autocmd('VimEnter', {
---   callback = function()
---     vim.cmd [[
---       highlight MiniStatuslineFilename guifg=#FFFF00 gui=bold
---       highlight MiniStatuslineInactive guifg=#FFFF00 gui=bold
---     ]]
---   end,
--- })
 
 function CloseHelpBeforeQuit()
 	local help_windows = {}
@@ -121,17 +105,6 @@ vim.keymap.set("i", "xx", "<cmd>w<CR><ESC>")
 vim.keymap.set("i", "kk", ":")
 vim.keymap.set("n", "<leader>s", "<cmd>w<CR>", { desc = "write" })
 vim.keymap.set("n", "<leader>x", "<cmd>wa<CR><cmd>qa<CR>", { noremap = true, desc = "save & quit neovim" })
-vim.keymap.set("n", "<leader>1", "<cmd>tabn 1<CR>", { noremap = true, silent = true, desc = "Jump to left window" }) -- Left window
-vim.keymap.set("n", "<leader>2", "<cmd>tabn 2<CR>", { noremap = true, silent = true, desc = "Jump to right window" }) -- Right window
-vim.keymap.set("n", "<leader>3", "<cmd>tabn 3<CR>", { noremap = true, silent = true, desc = "Jump to bottom window" }) -- Bottom window
-vim.keymap.set("n", "<leader>4", "<cmd>tabn 4<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-vim.keymap.set("n", "<leader>5", "<cmd>tabn 5<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-vim.keymap.set("n", "<leader>6", "<cmd>tabn 6<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-vim.keymap.set("n", "<leader>7", "<cmd>tabn 7<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-vim.keymap.set("n", "<leader>8", "<cmd>tabn 8<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-vim.keymap.set("n", "<leader>9", "<cmd>tabn 9<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-vim.keymap.set("n", "<leader>0", "<cmd>tablast<CR>", { noremap = true, silent = true, desc = "Jump to top window" }) -- Top window
-
 vim.g.have_nerd_font = true
 
 -- NOTE:
@@ -179,14 +152,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
-
--- Show which line your cursor is on
 vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
--- vim.opt.scrolloff = 10
-vim.opt.scrolloff = 3
-
 vim.opt.magic = true
 
 -- [[ Basic Keymaps ]]
@@ -606,15 +572,11 @@ require("lazy").setup({
 						end
 					end
 
-					-- Jump to the definition of the word under your cursor.
-					--  This is where a variable was first declared, or where a function is defined, etc.
-					--  To jump back, press <C-t>.
 					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 					map("fo", require("telescope.builtin").lsp_document_symbols, "outline")
 
 					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 
-					-- Jump to the implementation of the word under your cursor.
 					--  Useful when your language has ways of declaring types without an actual implementation.
 					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 
