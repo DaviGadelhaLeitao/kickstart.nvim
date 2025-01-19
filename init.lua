@@ -46,6 +46,9 @@ vim.g.maplocalleader = " "
 -- vim.keymap.set('n', 'j', 'gj')
 -- vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set("n", "<leader>km", toggle_maximize_window, { noremap = true, silent = true })
+vim.keymap.set("n", "n", "nzz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
 
 function _G.close_all_except_current_and_neotree()
 	local current_buf = vim.api.nvim_get_current_buf()
