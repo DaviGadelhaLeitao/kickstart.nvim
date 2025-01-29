@@ -36,9 +36,12 @@ local function toggle_maximize_window()
 	end
 end
 
+vim.opt.scrolloff = 8
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.keymap.set("n", "<leader>km", toggle_maximize_window, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>")
 vim.keymap.set("n", "n", "nzz", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
@@ -92,6 +95,7 @@ vim.api.nvim_set_keymap("n", "<leader>,", ":b#<CR>", { noremap = true, silent = 
 vim.opt.foldtext = ""
 vim.opt.fillchars = { fold = " " }
 vim.opt.foldmethod = "indent"
+vim.opt.foldlevelstart = 99
 vim.keymap.set("n", "<leader>k0", "<cmd>set foldlevel=0<CR>")
 vim.keymap.set("n", "<leader>k1", "<cmd>set foldlevel=1<CR>")
 vim.keymap.set("n", "<leader>k2", "<cmd>set foldlevel=2<CR>")
