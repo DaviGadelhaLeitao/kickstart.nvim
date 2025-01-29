@@ -572,10 +572,25 @@ require("lazy").setup({
 						end
 					end
 
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					map("gd", function()
+						require("telescope.builtin").lsp_definitions({
+							frame_width = 50,
+							show_line = true,
+							trim_text = true,
+						})
+					end, "[G]oto [D]efinition")
 					map("fo", require("telescope.builtin").lsp_document_symbols, "outline")
 
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+					-- 					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+					map("gr", function()
+						require("telescope.builtin").lsp_references({
+							include_declaration = false, -- Exclude declarations
+							include_current_line = true, -- Include references on the current line
+							fname_width = 50, -- Increase filename column width
+							show_line = true, -- Show line content in results
+							trim_text = true, -- Trim long text lines
+						})
+					end, "[G]oto [R]eferences")
 
 					--  Useful when your language has ways of declaring types without an actual implementation.
 					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
