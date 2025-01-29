@@ -92,7 +92,6 @@ vim.api.nvim_set_keymap("n", "<leader>,", ":b#<CR>", { noremap = true, silent = 
 vim.opt.foldtext = ""
 vim.opt.fillchars = { fold = " " }
 vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 99
 vim.keymap.set("n", "<leader>k0", "<cmd>set foldlevel=0<CR>")
 vim.keymap.set("n", "<leader>k1", "<cmd>set foldlevel=1<CR>")
 vim.keymap.set("n", "<leader>k2", "<cmd>set foldlevel=2<CR>")
@@ -112,7 +111,7 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
@@ -379,16 +378,13 @@ require("lazy").setup({
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
 			require("telescope").setup({
-				-- You can put your default mappings / updates / etc. in here
 				defaults = {
-					layout_strategy = "vertical", -- Ensure horizontal is set globally (optional)
+					layout_strategy = "vertical",
 					layout_config = {
-						horizontal = {
-							preview_width = 0.5,
-						},
 						width = 0.9,
 						height = 0.8,
 					},
+					path_display = "tail",
 				},
 				--  All the info you're looking for is in `:help telescope.setup()`
 				--
@@ -945,6 +941,7 @@ require("lazy").setup({
 			-- - sr)'  - [S]urround [R]eplace [)] [']
 			require("mini.surround").setup()
 
+			require("mini.animate").setup()
 			-- Simple and easy statusline.
 			--  You could remove this setup call if you don't like it,
 			--  and try some other statusline plugin
