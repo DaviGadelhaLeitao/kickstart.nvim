@@ -391,7 +391,7 @@ require("lazy").setup({
             width = 0.9,
             height = 0.8,
           },
-          path_display = "tail",
+          path_display = { "tail" },
         },
         --  All the info you're looking for is in `:help telescope.setup()`
         --
