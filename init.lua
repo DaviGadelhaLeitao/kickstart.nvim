@@ -10,6 +10,9 @@
 If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
 --]]
 
+-- remove auto comment new line, open help always in solo screen
+-- add vertical rules
+
 -- function _G.show_jumps_in_buffer()
 --   vim.cmd 'redir @a | jumps | redir END'
 --   vim.cmd 'new'
