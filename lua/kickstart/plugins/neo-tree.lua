@@ -21,6 +21,17 @@ return {
           ["\\"] = "close_window",
         },
       },
+      components = {
+        type = function()
+          return {}
+        end,
+        file_size = function()
+          return {}
+        end,
+        last_modified = function()
+          return {}
+        end,
+      },
     },
   },
 }
