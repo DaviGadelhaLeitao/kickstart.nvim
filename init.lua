@@ -110,7 +110,13 @@ vim.keymap.set("n", "sc", "<C-w>q")
 vim.keymap.set("i", "xx", "<cmd>w<CR><ESC>")
 vim.keymap.set("i", "kk", ":")
 vim.keymap.set("n", "<leader>s", "<cmd>w<CR>", { desc = "write" })
-vim.keymap.set("n", "<leader>x", "<cmd>wa<CR><cmd>qa<CR>", { noremap = true, desc = "save & quit neovim" })
+
+local function exitVim()
+  return "<cmd>print('hello')"
+end
+
+-- vim.keymap.set("n", "<leader>x", exitVim, { noremap = true, desc = "save & quit neovim" })
+vim.keymap.set("n", "<leader>x", "<cmd>w<cr><cmd>qa<cr>", { noremap = true, desc = "save & quit neovim" })
 vim.g.have_nerd_font = true
 
 -- NOTE:
