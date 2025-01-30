@@ -36,7 +36,7 @@ local function toggle_maximize_window()
   end
 end
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 4
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
